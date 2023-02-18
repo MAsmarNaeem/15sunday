@@ -19,6 +19,8 @@ export default function Home() {
 
  submitHandler,
  gettodos,
+ changemyfile,
+ attachmentImage,
   }=usetodos()
   return (
     <>
@@ -28,7 +30,7 @@ export default function Home() {
   <span className="input-group-text" id="addon-wrapping">@</span>
   <input type="text"  aria-placeholder='enter text'  value={description} onChange={(e)=>{setdescription(e.target.value)}} className="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping"/>
    {/* <button className='m-1'>choose file</button> */}
-   <input type="file"  className='m-1' />
+   <input type="file" onChange={changemyfile} className='m-1' />
  
 
 </div>
@@ -47,6 +49,8 @@ export default function Home() {
    return(
     <div>
       <h2>{todos.id}  ---===--  {todos.description}</h2>
+      <img style={{width:50, height:50}} src={todos?.attachmentImage} alt="" />
+
     </div>
    )
       }

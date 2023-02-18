@@ -8,10 +8,28 @@ export default function usetodos()
 {
     const[description,setdescription]=useState('   ')
     const[todos,settodos]=useState<any>([])
+    const [attachmentImage, setAttachmentImage] = useState<any>({})
+    const[url,geturll]=useState<any>()
 
     const submitHandler=async()=>
     {
         try {
+            
+
+
+const storageRef = ref(storage, `/todos/${description}${attachmentImage}`);
+//const storageRef = ref(storage, 'some-child');
+
+// 'file' comes from the Blob or File API
+ const result=uploadBytes(storageRef, attachmentImage)
+//  .then((snapshot) => {
+//   console.log('Uploaded a blob or file!');
+// })
+    // const today=await getDownloadURL(result.ref)
+    // geturll(today)
+    
+
+
   
      const newdoc=
      {
@@ -31,18 +49,12 @@ export default function usetodos()
 
     }
 
-    // const onFileChangeHandle = async (e:any) => {
-    //    const file = new File([e.tar:anyget.files[0]], e.target.files[0].name)
-    //    // setAttachmentImage(e.target.files[0])
-    //     try {
-            
-    //     } catch (error) {
-    //         console.log("error in file handling", error);
+  
 
-    //     }
-
-
-    //}
+    const changemyfile=async(e:any)=>
+    {
+        setAttachmentImage(e.target.files[0])
+    }
     const gettodos=async()=>
     {
         const querysnapshot=await getDocs(collection(db,"my"))
@@ -51,9 +63,11 @@ export default function usetodos()
         {
             todolist.push(
                 {
+                   // geturll: doc.data()?.get,
                     description: doc.data()?.description,
                     id: doc.id,
-                    createdAt: doc.data()?.createdAt
+                    createdAt: doc.data()?.createdAt,
+                    attachmentImage:doc.data()?.attachmentImage
                 }
             )
         }
@@ -72,8 +86,12 @@ export default function usetodos()
  settodos,
  submitHandler,
  gettodos,
+ changemyfile,
+ attachmentImage,
 
 
    }
     )
 }
+
+//welcome chat gpt
